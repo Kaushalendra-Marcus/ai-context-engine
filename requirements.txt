@@ -1,0 +1,19 @@
+#Langchain Core
+langchain
+langchain-core
+
+#groq-Integration
+langchain-groq
+
+#HuggingFace Integration
+langchain-huggingface
+transformers
+huggingface-hub
+
+#Environment Variable Management
+python-dotenv
+
+
+#Machine Learning Utilities
+numpy
+scikit-learn
