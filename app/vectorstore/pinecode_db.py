@@ -8,7 +8,6 @@ INDEX_NAME = "ai-context-engine"
 
 
 def init_pinecode():
-    print(os.getenv("PINECONE_API_KEY"))
     pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
     if INDEX_NAME not in [index["name"] for index in pc.list_indexes()]:
         pc.create_index(

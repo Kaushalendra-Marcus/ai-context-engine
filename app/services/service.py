@@ -10,7 +10,7 @@ class QueryService:
             result = self.chain.invoke(query)
             return {
                 "summary": result.summary,
-                "depencies": result.dependencies,
+                "dependencies": result.dependencies,
                 "risks": result.risks,
             }
         except Exception as e:
