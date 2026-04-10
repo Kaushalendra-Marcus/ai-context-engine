@@ -8,7 +8,7 @@ INDEX_NAME = "ai-context-engine"
 
 def init_pinecode():
     pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
-    if INDEX_NAME not in [index["name"] for index in pc.list_indexes]:
+    if INDEX_NAME not in [index["name"] for index in pc.list_indexes()]:
         pc.create_index(
             name=INDEX_NAME,
             dimension=384,
@@ -18,13 +18,13 @@ def init_pinecode():
     return pc
 
 
-def get_vector_store(docs: None):
+def get_vectorstore(docs =None):
     embeddings = get_embeddings()
     pc = init_pinecode()
 
     if docs:
         return PineconeVectorStore.from_documents(
-            docs, embedding, index_name=INDEX_NAME
+            docs, embeddings, index_name=INDEX_NAME
         )
 
-    return PineconeVectorStore(index_name=INDEX_NAME, embedding=embeddings)
+    return PineconeVectorStore.from_existing_index(index_name=INDEX_NAME, embedding=embeddings)
