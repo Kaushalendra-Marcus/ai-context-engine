@@ -1,25 +1,24 @@
 from langchain_core.prompts import PromptTemplate
+from parsers.parser import get_parser
+
+parser = get_parser()
 
 TECH_SPEC_PROMPT = PromptTemplate(
     template="""
 You are a senior backend engineer.
 
-Use ONLY the given context to answer.
+Use ONLY the given context.
 
-If context is not enough, say "I don't know".
+{format_instructions}
 
 Context:
 {context}
 
-User Query:
+Query:
 {query}
-
-Generate a structured response with:
-1. Summary (clear explanation of feature/request)
-2. Dependencies (services, modules, APIs involved)
-3. Risks (edge cases, failure points, constraints)
-
-Keep it concise and practical.
 """,
     input_variables=["context", "query"],
+    partial_variables={
+        "format_instructions": parser.get_format_instructions()
+    }
 )

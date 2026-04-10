@@ -1,0 +1,33 @@
+Authentication and Authorization System
+
+The system uses JWT-based authentication for secure user access.
+
+Flow:
+1. User logs in with credentials.
+2. Server validates credentials and generates JWT token.
+3. Token is sent to client and stored (usually in cookies/local storage).
+4. Each request includes the token for authentication.
+
+Authorization:
+- Role-based access control (RBAC) is implemented.
+- Roles include Admin, User, and Service accounts.
+
+Key components:
+- AuthService: handles login, token generation
+- Middleware: validates JWT on each request
+- Database: stores user credentials and roles
+
+Security considerations:
+- Tokens should have expiration (e.g., 15 minutes access, refresh tokens)
+- Use HTTPS to prevent token leakage
+- Implement rate limiting on login endpoints
+
+Dependencies:
+- JWT libraries
+- Database (PostgreSQL)
+- Redis (optional for session management)
+
+Risks:
+- Token leakage can compromise accounts
+- Improper role checks can lead to privilege escalation
+- Weak password policies reduce security

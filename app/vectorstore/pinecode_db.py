@@ -1,19 +1,21 @@
 import os
 from langchain_pinecone import PineconeVectorStore
-from pinecone import Pinecone, ServerLessSpec
+from pinecone import Pinecone, ServerlessSpec
 from embeddings.embedding import get_embeddings
-
+from dotenv import load_dotenv
+load_dotenv()
 INDEX_NAME = "ai-context-engine"
 
 
 def init_pinecode():
+    print(os.getenv("PINECONE_API_KEY"))
     pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
     if INDEX_NAME not in [index["name"] for index in pc.list_indexes()]:
         pc.create_index(
             name=INDEX_NAME,
             dimension=384,
             metric="cosine",
-            spec=ServerLessSpec(cloud="aws", region="us-east-1"),
+            spec=ServerlessSpec(cloud="aws", region="us-east-1"),
         )
     return pc
 

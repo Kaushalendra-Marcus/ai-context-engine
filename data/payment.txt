@@ -1,0 +1,29 @@
+Payment Retry Logic System
+
+The payment system is designed to handle failed transactions using a retry mechanism.
+
+Flow:
+1. User initiates a payment request.
+2. PaymentService processes the request.
+3. If the payment fails due to network or gateway issues, it is marked as retryable.
+4. Retry logic triggers up to 3 attempts using exponential backoff (e.g., 1s, 2s, 4s).
+
+Key components:
+- PaymentService: handles payment processing
+- RetryManager: manages retry attempts
+- Redis: stores retry state and counters
+- External Payment Gateway API
+
+Constraints:
+- Retry should not happen for user-declined payments
+- Ensure idempotency to avoid duplicate charges
+
+Dependencies:
+- Redis (for tracking retries)
+- Payment Gateway API (Stripe/Razorpay)
+- Background worker (Celery/Sidekiq)
+
+Risks:
+- Duplicate transactions if idempotency is not handled
+- Delayed retries can affect user experience
+- External API failures can cascade

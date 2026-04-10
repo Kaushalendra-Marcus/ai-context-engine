@@ -12,7 +12,7 @@ def get_llm():
         repo_id="meta-llama/Llama-3.3-70B-Instruct",
         task="text-generation",
         huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
-        temperature=0.7,
+        temperature=0.3,
     )
     return ChatHuggingFace(llm=llm)
 
@@ -32,3 +32,4 @@ def get_rag_chain():
         | llm
         | parser
     )
+    return chain
